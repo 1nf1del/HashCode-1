@@ -18,6 +18,8 @@ print(args)
 
 n_vid, n_end, n_req, n_cache, s_cache, s_videos, endpoints, requests = read_dataset(args.input)
 
-cache, videos_on_cache = solution(n_vid, n_end, n_req, n_cache, s_cache, s_videos, endpoints, requests)
+cache, videos_on_cache = solution2(n_vid, n_end, n_req, n_cache, s_cache, s_videos, endpoints, requests)
 
 write_solution(args.output, cache, videos_on_cache)
+
+print("Score {0}".format(compute_solution_score(cache, videos_on_cache, requests, endpoints)))
