@@ -181,6 +181,10 @@ def solution2(n_vid, n_end, n_req, n_cache, s_cache, s_videos, endpoints, reques
 
     print((len(pq))/(n_vid * n_cache), "in Queue.")
 
+    for (k, ss) in pq.items():
+        vv, cc = k // n_cache, k % n_cache
+        print("pos %d, %d, %f" % (vv, cc, ss))
+
     # update from here on
     while pq:
         # (s, v, c) = heappop(pq)
@@ -211,6 +215,7 @@ def solution2(n_vid, n_end, n_req, n_cache, s_cache, s_videos, endpoints, reques
 
             # update scores for connected caches / videos
             print((v, c))
+            print(sorted([i for i in pq.keys()]))
             print("before_")
             for eid in c2e_l[c]:
                 # endpoint connects to cache
@@ -219,7 +224,7 @@ def solution2(n_vid, n_end, n_req, n_cache, s_cache, s_videos, endpoints, reques
                     if v2e_m[v][eid]:
                         for cid, _ in endpoints[eid].con:
                             idx = v * n_cache + cid
-                            if scores[v][cid] != 0:
+                            if scores[v][cid] != 0 and idx in pq:
                                 print((v, cid, scores[v][cid]), end=' -> ')
                                 scores[v][cid] = 0
                                 print((v, cid, scores[v][cid]))
@@ -230,6 +235,7 @@ def solution2(n_vid, n_end, n_req, n_cache, s_cache, s_videos, endpoints, reques
             for (k, ss) in pq.items():
                 vv, cc = k // n_cache, k % n_cache
                 new_score = scores[vv][cc]
+                print("pos %d, %d, %f" % (vv, cc, ss))
                 if ss != new_score:
                     print((vv, cc))
                     pq[k] = new_score
